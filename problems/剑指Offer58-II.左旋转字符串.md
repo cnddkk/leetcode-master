@@ -86,7 +86,7 @@ public:
 # 题外话
 
 一些同学热衷于使用substr，来做这道题。
-其实使用substr 和 反转 时间复杂度是一样的 ，都是$O(n)$，但是使用substr申请了额外空间，所以空间复杂度是$O(n)$，而反转方法的空间复杂度是$O(1)$。
+其实使用substr 和 反转 时间复杂度是一样的 ，都是O(n)，但是使用substr申请了额外空间，所以空间复杂度是O(n)，而反转方法的空间复杂度是O(1)。
 
 **如果想让这套题目有意义，就不要申请额外空间。**
 
@@ -290,6 +290,56 @@ func reverseString(_ s: inout [Character], startIndex: Int, endIndex: Int)  {
 }
 ```
 
+
+### PHP
+
+```php
+function reverseLeftWords($s, $n) {
+    $this->reverse($s,0,$n-1); //反转区间为前n的子串
+    $this->reverse($s,$n,strlen($s)-1); //反转区间为n到末尾的子串
+    $this->reverse($s,0,strlen($s)-1); //反转整个字符串
+    return $s;
+}
+
+// 按指定进行翻转 【array、string都可】
+function reverse(&$s, $start, $end) {
+    for ($i = $start, $j = $end; $i < $j; $i++, $j--) {
+        $tmp = $s[$i];
+        $s[$i] = $s[$j];
+        $s[$j] = $tmp;
+    }
+}
+```
+
+
+Scala:
+
+```scala
+object Solution {
+  def reverseLeftWords(s: String, n: Int): String = {
+    var str = s.toCharArray // 转换为Array
+    // abcdefg => ba cdefg 
+    reverseString(str, 0, n - 1)
+    // ba cdefg => ba gfedc
+    reverseString(str, n, str.length - 1)
+    // ba gfedc => cdefgab
+    reverseString(str, 0, str.length - 1)
+    // 最终返回，return关键字可以省略
+    new String(str)
+  }
+  // 翻转字符串
+  def reverseString(s: Array[Char], start: Int, end: Int): Unit = {
+    var (left, right) = (start, end)
+    while (left < right) {
+      var tmp = s(left)
+      s(left) = s(right)
+      s(right) = tmp
+      left += 1
+      right -= 1
+    }
+  }
+}
+```
 
 
 
