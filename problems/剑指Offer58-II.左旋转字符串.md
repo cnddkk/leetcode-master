@@ -1,6 +1,6 @@
 <p align="center">
-<a href="https://programmercarl.com/other/kstar.html" target="_blank">
-  <img src="https://code-thinking-1253855093.file.myqcloud.com/pics/20210924105952.png" width="1000"/>
+<a href="https://programmercarl.com/other/xunlianying.html" target="_blank">
+  <img src="../pics/训练营.png" width="1000"/>
 </a>
 <p align="center"><strong><a href="https://mp.weixin.qq.com/s/tqCxrMEU-ajQumL1i8im9A">参与本项目</a>，贡献其他语言版本的代码，拥抱开源，让更多学习算法的小伙伴们收益！</strong></p>
 
@@ -9,7 +9,7 @@
 
 # 题目：剑指Offer58-II.左旋转字符串
 
-[力扣题目链接](https://leetcode-cn.com/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/)
+[力扣题目链接](https://leetcode.cn/problems/zuo-xuan-zhuan-zi-fu-chuan-lcof/)
 
 字符串的左旋转操作是把字符串前面的若干个字符转移到字符串的尾部。请定义一个函数实现字符串左旋转操作的功能。比如，输入字符串"abcdefg"和数字2，该函数将返回左旋转两位得到的结果"cdefgab"。
 
@@ -31,7 +31,7 @@
 不能使用额外空间的话，模拟在本串操作要实现左旋转字符串的功能还是有点困难的。
 
 
-那么我们可以想一下上一题目[字符串：花式反转还不够！](https://programmercarl.com/0151.翻转字符串里的单词.html)中讲过，使用整体反转+局部反转就可以实现，反转单词顺序的目的。
+那么我们可以想一下上一题目[字符串：花式反转还不够！](https://programmercarl.com/0151.翻转字符串里的单词.html)中讲过，使用整体反转+局部反转就可以实现反转单词顺序的目的。
 
 这道题目也非常类似，依然可以通过局部反转+整体反转 达到左旋转的目的。
 
@@ -41,7 +41,7 @@
 2. 反转区间为n到末尾的子串
 3. 反转整个字符串
 
-最后就可以得到左旋n的目的，而不用定义新的字符串，完全在本串上操作。
+最后就可以达到左旋n的目的，而不用定义新的字符串，完全在本串上操作。
 
 例如 ：示例1中 输入：字符串abcdefg，n=2
 
@@ -75,7 +75,7 @@ public:
 
 在这篇文章[344.反转字符串](https://programmercarl.com/0344.反转字符串.html)，第一次讲到反转一个字符串应该怎么做，使用了双指针法。
 
-然后发现[541. 反转字符串II](https://programmercarl.com/0541.反转字符串II.html)，这里开始给反转加上了一些条件，当需要固定规律一段一段去处理字符串的时候，要想想在在for循环的表达式上做做文章。
+然后发现[541. 反转字符串II](https://programmercarl.com/0541.反转字符串II.html)，这里开始给反转加上了一些条件，当需要固定规律一段一段去处理字符串的时候，要想想在for循环的表达式上做做文章。
 
 后来在[151.翻转字符串里的单词](https://programmercarl.com/0151.翻转字符串里的单词.html)中，要对一句话里的单词顺序进行反转，发现先整体反转再局部反转 是一个很妙的思路。
 
@@ -113,6 +113,29 @@ class Solution {
             }
         }
 }
+```
+
+```java
+//解法二：空间复杂度：O(1)。用原始数组来进行反转操作
+//思路为：先整个字符串反转，再反转前面的，最后反转后面 n 个
+class Solution {
+    public String reverseLeftWords(String s, int n) {
+        char[] chars = s.toCharArray();
+        reverse(chars, 0, chars.length - 1);
+        reverse(chars, 0, chars.length - 1 - n);
+        reverse(chars, chars.length - n, chars.length - 1);
+        return new String(chars);
+    }
+
+    public void reverse(char[] chars, int left, int right) {
+        while (left < right) {
+            chars[left] ^= chars[right];
+            chars[right] ^= chars[left];
+            chars[left] ^= chars[right];
+            left++;
+            right--;
+        }
+    }
 ```
 
 python: 
@@ -263,6 +286,13 @@ function reverseLeftWords(s: string, n: number): string {
     return strArr.join('');
 };
 ```
+方法二:
+```typescript
+// 拼接两个字符串，截取符合要求的部分
+function reverseLeftWords(s: string, n: number): string {
+    return (s+s).slice(n,s.length+n);
+};
+```
 
 Swift:
 
@@ -341,9 +371,34 @@ object Solution {
 }
 ```
 
+Rust:
+
+```Rust
+impl Solution {
+    pub fn reverse(s: &mut Vec<char>, mut begin: usize, mut end: usize){
+        while begin < end {
+            let temp = s[begin];
+            s[begin] = s[end];
+            s[end] = temp;
+            begin += 1;
+            end -= 1;
+        }
+    }
+    pub fn reverse_left_words(s: String, n: i32) -> String {
+        let len = s.len();
+        let mut s = s.chars().collect::<Vec<char>>();
+        let n = n as usize;
+        Self::reverse(&mut s, 0, n - 1);
+        Self::reverse(&mut s, n, len - 1);
+        Self::reverse(&mut s, 0, len - 1);
+        s.iter().collect::<String>()
+    }
+}
+```
 
 
 
-
------------------------
-<div align="center"><img src=https://code-thinking.cdn.bcebos.com/pics/01二维码一.jpg width=500> </img></div>
+<p align="center">
+<a href="https://programmercarl.com/other/kstar.html" target="_blank">
+  <img src="../pics/网站星球宣传海报.jpg" width="1000"/>
+</a>
